@@ -1,0 +1,63 @@
+version '1.0-SNAPSHOT'
+group 'com.nishant.io'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    // https://mvnrepository.com/artifact/org.easymock/easymock
+    testCompile group: 'org.easymock', name: 'easymock', version: '3.1'
+
+    // https://mvnrepository.com/artifact/org.powermock/powermock-mockito-release-full
+    testCompile group: 'org.powermock', name: 'powermock-mockito-release-full', version: '1.5.4'
+
+
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Mocket',
+                'Implementation-Version': version
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+
+// client.jar
+task clientJar(type: Jar) {
+    from(sourceSets.main.output) {
+        include "com/network/mocket/builder/client/**"
+    }
+}
+
+task echoClient(type: JavaExec) {
+    main = "com.network.mocket.example.EchoClient"
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+}
+
+task echoServer(type: JavaExec) {
+    main = "com.network.mocket.example.EchoServer"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task fileClient(type: JavaExec) {
+    main = "com.network.mocket.example.file.FileClient"
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    if(project.hasProperty('fileName')) {
+        args = [project.property('fileName')]
+    }
+}
