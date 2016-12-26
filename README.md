@@ -1,6 +1,6 @@
 Mocket
 ======
-Typesafe, Reliable, Guaranty delivery, Ordered, High performant java nio sockets build on top
+Lightweight, Typesafe, Reliable, Guaranty delivery, Ordered, High performant java nio sockets build on top
 of udp.
 
 Download
