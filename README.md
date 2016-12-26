@@ -145,7 +145,7 @@ Sample server client can be found here [example](/src/main/java/com/network/mock
 
 Use Case
 --------
-1. Add ssl support
+1. Add ssl support.
 2. Service-Service communication inside data center.
 3. Push periodic data such as location from Android app* to server.
 
