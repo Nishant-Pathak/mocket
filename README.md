@@ -111,6 +111,38 @@ Write signature:
   void write(T data) throws IOException, InterruptedException;
 ```
 
+To write custom mapper
+----------------------
+Implement java interface and add it to the client and server builder as
+
+```java
+        builder.addHandler(new MyCustomHandler())
+```
+
+```java
+public interface MocketStreamHandler<P> {
+  /**
+   * Used to encode object to byte stream
+   * @param in inout object of tye {P}
+   * @return byte array representing object
+   * @throws ParseException throws if fails to encode or decode
+   */
+  byte [] encode(P in) throws ParseException;
+
+  /**
+   * Used to decode bytestream to object
+   * @param out inout object of tye {P}
+   * @return byte array representing object
+   * @throws ParseException throws if fails to encode or decode
+   */
+  P decode(byte [] out) throws ParseException;
+}
+```
+
+Example
+-------
+Sample server client can be found here [example](/src/main/java/com/network/mocket/example).
+
 Use Case
 --------
 1. Service-Service communication inside data center.
