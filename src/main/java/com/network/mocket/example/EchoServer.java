@@ -15,8 +15,7 @@ public class EchoServer {
   private static final Map<SocketAddress, Pair<Long, Integer> /* pair of time vs bytes */> clientStat = new HashMap<>();
   public static void main(String... args) throws IOException, MocketException, InterruptedException {
     ServerBuilder<byte []> serverBuilder = new ServerBuilder<byte []>()
-        .port(8080)
-        .channelType(ServerBuilder.ChannelType.UDP);
+        .port(8080);
     Server<byte[]> server = serverBuilder.build();
 
     while (true) {

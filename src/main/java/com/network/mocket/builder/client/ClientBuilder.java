@@ -26,7 +26,7 @@ import java.util.logging.*;
 public class ClientBuilder<T> implements Builder {
   private static final Logger LOGGER = Logger.getLogger(ClientBuilder.class.getName());
 
-  private ChannelType channelType;
+  private ChannelType channelType = ChannelType.UDP;
   private String host;
   private int port;
   private List<MocketStreamHandler> handlers;
@@ -58,6 +58,10 @@ public class ClientBuilder<T> implements Builder {
     StreamProcessor streamProcessor = new StreamProcessor(handlers);
 
     switch (channelType) {
+      case TCP:
+        throw new MocketException("coming soon");
+      case TWO_TCP:
+        throw new MocketException("coming soon");
       case UDP:
         clientChannel = new UdpChannel(
             uuid,
@@ -67,9 +71,6 @@ public class ClientBuilder<T> implements Builder {
             scheduledExecutorService
         );
         break;
-      case TCP:
-      case TWO_TCP:
-        throw new MocketException("coming soon");
       default:
         throw new MocketException("channel type is not defined");
     }

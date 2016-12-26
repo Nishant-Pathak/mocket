@@ -13,8 +13,7 @@ public class EchoClient {
 
   public static void main(String... args) throws MocketException, IOException, InterruptedException {
     ClientBuilder<byte []> builder = new ClientBuilder<byte []>()
-        .host("127.0.0.1", 8080)
-        .channelType(ClientBuilder.ChannelType.UDP);
+        .host("127.0.0.1", 8080);
     Client<byte []> client = builder.build();
 
     ReadableByteChannel readableByteChannel = Channels.newChannel(System.in);

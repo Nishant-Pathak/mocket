@@ -18,8 +18,8 @@ public interface Client<T> {
    * write object of type T on the wire
    * it used @{@link com.network.mocket.handler.MocketStreamHandler} to parse the object
    * @param data object to send on wire to the server.
-   * @throws IOException
-   * @throws InterruptedException
+   * @throws IOException if error occurs while writing to the socket
+   * @throws InterruptedException if write is interrupted
    */
   void write(T data) throws IOException, InterruptedException;
 
