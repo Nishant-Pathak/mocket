@@ -5,6 +5,50 @@ of udp.
 
 Download
 --------
+ * Use jitpack as repository
+ * Add mocket to dependencies
+
+As shown below:
+
+1. Maven
+```xml
+<project>
+...
+    <repositories>
+    ...
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+</project>
+```
+
+```xml
+    <dependencies>
+        ...
+        <dependency>
+            <groupId>com.github.Nishant-Pathak</groupId>
+            <artifactId>mocket</artifactId>
+            <version>v1.0</version>
+        </dependency>
+    </dependencies>
+```
+
+2. Gradle
+```groovy
+    allprojects {
+        repositories {
+            ...
+            maven { url 'https://jitpack.io' }
+        }
+    }
+```
+```groovy
+    dependencies {
+        compile 'com.github.Nishant-Pathak:mocket:v1.0'
+    }
+```
 
 Simple Server
 -------------
