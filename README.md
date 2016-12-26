@@ -74,6 +74,17 @@ Use Case
 
 *Some gateways might block UDP traffic.
 
+Next Milestone
+--------------
+1. Have support for TCP.
+2. Multipart TCP support.
+
+Contributing
+------------
+I am more than happy to accept external contributions to the project in the form of feedback, bug reports and even better - pull requests :)
+
+If you would like to submit a pull request, please make an effort to follow the guide in [CONTRIBUTING.md](CONTRIBUTING.md).
+
 License
 =======
 Copyright (C) 2016 - 2017 Nishant Pathak
