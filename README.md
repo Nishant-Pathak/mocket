@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Nishant-Pathak/mocket.svg?branch=master)](https://travis-ci.org/Nishant-Pathak/mocket)
+
 Mocket
 ======
 Lightweight, Typesafe, Reliable, Guaranty delivery, Ordered, High performant java nio sockets build on top
@@ -145,16 +147,16 @@ Sample server client can be found here [example](/src/main/java/com/network/mock
 
 Use Case
 --------
-1. Add ssl support.
-2. Service-Service communication inside data center.
-3. Push periodic data such as location from Android app* to server.
+1. Service-Service communication inside data center.
+2. Push periodic data such as location from Android app* to server.
 
 *Some gateways might block UDP traffic.
 
 Next Milestone
 --------------
-1. Have support for TCP.
-2. Multipart TCP support.
+1. Add ssl support.
+2. Have support for TCP.
+3. Multipart TCP support.
 
 Contributing
 ------------
