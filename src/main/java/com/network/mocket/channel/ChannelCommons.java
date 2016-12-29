@@ -9,11 +9,16 @@ import com.network.mocket.packet.IPacket;
 
 import java.io.IOException;
 import java.net.SocketAddress;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class ChannelCommons {
 
   // method to be implemented by UdpChannel and UdpServer Channel
   public abstract void write(SocketAddress address, byte[] data) throws IOException;
+
+  protected static final Logger LOGGER = Logger.getLogger(BaseServerChannel.class.getName());
+
 
   public void write(
       IChannelManager channelManager,
@@ -22,7 +27,7 @@ public abstract class ChannelCommons {
       Integer packetSeq
   ) throws IOException {
     // Log Packet
-    MocketChannel.logPacket(address, packet, true);
+    logPacket(address, packet, true);
 
     // add to in-flight packets
     if (Constants.IGNORE_SEQUENCE != packetSeq) {
@@ -66,4 +71,13 @@ public abstract class ChannelCommons {
     }
     return Pair.create(result, currentConsumedPacket);
   }
+
+  static void logPacket(SocketAddress address, IPacket packet, boolean outgoing) {
+    String stringBuilder = (outgoing ? Constants.OUT_GOING : Constants.IN_COMING) +
+        address.toString() + " " +
+        packet.getHeader() + '\n';
+    LOGGER.log(Level.FINER, stringBuilder);
+    LOGGER.log(Level.FINEST, Constants.NEW_LINE + packet.dumpPacket());
+  }
+
 }

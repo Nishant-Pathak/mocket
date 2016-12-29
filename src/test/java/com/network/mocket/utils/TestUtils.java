@@ -3,25 +3,24 @@ package com.network.mocket.utils;
 import com.network.mocket.packet.IPacket;
 import com.network.mocket.packet.PacketType;
 import com.network.mocket.parser.ByteBufferToPackets;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 public class TestUtils {
   private static final String PACKET_FILE_NAME = "samplePacket.txt";
 
   public static IPacket getRandomPacket(PacketType packetType) throws IOException {
     List<IPacket> packets = readAllPackets();
-    packets = packets.stream()
-        .filter(packet -> packet.getHeader().getPacketType() == packetType)
-        .collect(Collectors.toList());
-    return packets.get(new Random().nextInt(packets.size()));
+    for (int i = 0; i < packets.size(); i++) {
+      if (packetType == packets.get(i).getHeader().getPacketType()) {
+        return packets.get(i);
+      }
+    }
+    return null;
   }
 
   public static List<IPacket> readAllPackets() throws IOException {

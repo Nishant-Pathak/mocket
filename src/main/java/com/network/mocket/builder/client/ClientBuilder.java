@@ -116,4 +116,19 @@ public class ClientBuilder<T> implements Builder {
     TCP,
     TWO_TCP
   }
+
+  /**
+   * Used if logging is needed
+   * @param logLevel set log level, one of @{@link Level}
+   * @return
+   */
+  Builder setLogLevel(Level logLevel) {
+    Logger log = LogManager.getLogManager().getLogger("");
+    log.setLevel(logLevel);
+    for (Handler h : log.getHandlers()) {
+      h.setLevel(logLevel);
+    }
+    log.log(Level.ALL, "log level configured to: " + logLevel);
+    return this;
+  }
 }

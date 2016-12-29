@@ -17,26 +17,28 @@ public class EchoNumberClient {
         .addHandler(new NumberHandler())
         .channelType(ClientBuilder.ChannelType.UDP);
 //    builder.setLogLevel(Level.FINEST);
-    Client<Integer> client = builder.build();
+    final Client<Integer> client = builder.build();
 
-    ReadableByteChannel readableByteChannel = Channels.newChannel(System.in);
-    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+    final ReadableByteChannel readableByteChannel = Channels.newChannel(System.in);
+    final ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
 
-    new Thread(() -> {
-      while (true) {
-        try {
-          readableByteChannel.read(byteBuffer);
-          byteBuffer.flip();
+    new Thread(new Runnable() {
+      @Override public void run() {
+        while (true) {
+          try {
+            readableByteChannel.read(byteBuffer);
+            byteBuffer.flip();
 
-          byte [] data = new byte[byteBuffer.remaining()];
-          byteBuffer.get(data);
-          client.write(Integer.parseInt(new String(data).trim()));
-          byteBuffer.flip();
-          byteBuffer.clear();
-        } catch (Exception e) {
-          e.printStackTrace();
-          client.shutDown();
-          break;
+            byte[] data = new byte[byteBuffer.remaining()];
+            byteBuffer.get(data);
+            client.write(Integer.parseInt(new String(data).trim()));
+            byteBuffer.flip();
+            byteBuffer.clear();
+          } catch (Exception e) {
+            e.printStackTrace();
+            client.shutDown();
+            break;
+          }
         }
       }
     }).start();

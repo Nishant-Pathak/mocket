@@ -2,13 +2,13 @@ package com.network.mocket.packet;
 
 import com.network.mocket.Constants;
 import com.network.mocket.channel.manager.IChannelManager;
+import com.network.mocket.helper.Function;
 import com.network.mocket.helper.Pair;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
-import java.util.function.Function;
 
 public abstract class Packet implements IPacket {
   protected final ByteBuffer byteBuffer;

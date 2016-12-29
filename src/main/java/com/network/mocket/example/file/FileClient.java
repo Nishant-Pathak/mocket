@@ -3,7 +3,6 @@ package com.network.mocket.example.file;
 import com.network.mocket.MocketException;
 import com.network.mocket.builder.client.Client;
 import com.network.mocket.builder.client.ClientBuilder;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -59,28 +58,29 @@ public class FileClient {
   private static void sendFile(final Client<byte []> client, String fileName) throws IOException {
     InputStream fileInputStream = Files.newInputStream(Paths.get(fileName + "_echo"), StandardOpenOption.READ);
 
-    ReadableByteChannel readableByteChannel = Channels.newChannel(fileInputStream);
-    ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 1024);
+    final ReadableByteChannel readableByteChannel = Channels.newChannel(fileInputStream);
+    final ByteBuffer byteBuffer = ByteBuffer.allocate(1024 * 1024);
 
-    threadPoolExecutor.submit(() -> {
-      try {
-        while(true) {
-          int read = readableByteChannel.read(byteBuffer);
-          if (read == -1) break;
-          numBytesWritten.addAndGet(read);
-          byteBuffer.flip();
-          byte [] data = new byte[byteBuffer.remaining()];
-          byteBuffer.get(data);
-          client.write(data);
-          byteBuffer.flip();
+    threadPoolExecutor.submit(new Runnable() {
+      @Override public void run() {
+        try {
+          while (true) {
+            int read = readableByteChannel.read(byteBuffer);
+            if (read == -1) break;
+            numBytesWritten.addAndGet(read);
+            byteBuffer.flip();
+            byte[] data = new byte[byteBuffer.remaining()];
+            byteBuffer.get(data);
+            client.write(data);
+            byteBuffer.flip();
+            byteBuffer.clear();
+          }
           byteBuffer.clear();
+          System.out.println("Bytes written: " + numBytesWritten);
+        } catch (IOException | InterruptedException e) {
+          e.printStackTrace();
         }
-        byteBuffer.clear();
-        System.out.println("Bytes written: " + numBytesWritten);
-      } catch (IOException | InterruptedException e) {
-        e.printStackTrace();
       }
-
     });
   }
 }

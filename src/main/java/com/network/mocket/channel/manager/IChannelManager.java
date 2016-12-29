@@ -30,13 +30,13 @@ public interface IChannelManager {
 
   boolean canIgnore(IPacket packet);
 
-  default void reactOnAcknowledge() {}
+  void reactOnAcknowledge();
 
   void setLastSendTime(long lastSendTime);
 
   void setLastReceiveTime(long lastReceiveTime);
 
-  default void registerChannel() throws InterruptedException, IOException {}
+  void registerChannel() throws InterruptedException, IOException;
 
   void reSendPacket(int start, int end);
 

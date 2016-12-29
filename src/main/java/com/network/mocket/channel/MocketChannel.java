@@ -12,13 +12,6 @@ import java.util.logging.Logger;
  */
 interface MocketChannel {
   Logger LOGGER = Logger.getLogger(MocketChannel.class.getSimpleName());
-  static void logPacket(SocketAddress address, IPacket packet, boolean outgoing) {
-    String stringBuilder = (outgoing ? Constants.OUT_GOING : Constants.IN_COMING) +
-        address.toString() + " " +
-        packet.getHeader() + '\n';
-    LOGGER.log(Level.FINER, stringBuilder);
-    LOGGER.log(Level.FINEST, Constants.NEW_LINE + packet.dumpPacket());
-  }
 
   void shutDown();
 }

@@ -20,21 +20,6 @@ public interface Builder {
   int SERVER_BYTE_BUFFER_SIZE = 1024 * 10; // 10 KB
 
   /**
-   * Used if logging is needed
-   * @param logLevel set log level, one of @{@link Level}
-   * @return
-   */
-  default Builder setLogLevel(Level logLevel) {
-    Logger log = LogManager.getLogManager().getLogger("");
-    log.setLevel(logLevel);
-    for (Handler h : log.getHandlers()) {
-      h.setLevel(logLevel);
-    }
-    log.log(Level.ALL, "log level configured to: " + logLevel);
-    return this;
-  }
-
-  /**
    * Add handler for converting objects to bytes and bytes to objects
    *
    * @param handler implementation of @{@link MocketStreamHandler}

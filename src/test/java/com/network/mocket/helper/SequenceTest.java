@@ -50,7 +50,11 @@ public class SequenceTest {
   }
 
   private void getAndIncrementConcurrent(final int threadCount) throws InterruptedException, ExecutionException {
-    Callable<Integer> task = () -> sequence.getAndIncrement();
+    Callable<Integer> task = new Callable<Integer>() {
+      @Override public Integer call() {
+        return sequence.getAndIncrement();
+      }
+    };
     List<Callable<Integer>> tasks = Collections.nCopies(threadCount, task);
     ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
     List<Future<Integer>> futures = executorService.invokeAll(tasks);

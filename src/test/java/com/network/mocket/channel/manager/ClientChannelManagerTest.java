@@ -1,17 +1,17 @@
 package com.network.mocket.channel.manager;
 
-import com.network.mocket.Constants;
 import com.network.mocket.channel.ChannelCommons;
-import com.network.mocket.helper.AckManager;
-import com.network.mocket.helper.AckManagerImpl;
 import com.network.mocket.helper.Pair;
-import com.network.mocket.helper.Utils;
 import com.network.mocket.packet.AckPacket;
 import com.network.mocket.packet.IPacket;
 import com.network.mocket.packet.PacketManager;
 import com.network.mocket.packet.PacketType;
 import com.network.mocket.parser.ByteBufferToPackets;
 import com.network.mocket.utils.TestUtils;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,12 +19,13 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.net.SocketAddress;
-import java.nio.ByteBuffer;
-import java.util.concurrent.ScheduledExecutorService;
-
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.assertEquals;
+import static org.easymock.EasyMock.anyLong;
+import static org.easymock.EasyMock.anyObject;
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -48,7 +49,8 @@ public class ClientChannelManagerTest {
     socketAddress = createNiceMock(SocketAddress.class);
     scheduledExecutorService = createNiceMock(ScheduledExecutorService.class);
     expect(scheduledExecutorService
-        .scheduleWithFixedDelay(anyObject(), anyLong(), anyLong(), anyObject())
+        .scheduleWithFixedDelay(anyObject(Runnable.class), anyLong(), anyLong(), anyObject
+            (TimeUnit.class))
     ).andReturn(null).times(2);
     replay(scheduledExecutorService);
 

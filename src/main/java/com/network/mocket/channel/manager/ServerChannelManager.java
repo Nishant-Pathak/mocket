@@ -3,6 +3,7 @@ package com.network.mocket.channel.manager;
 import com.network.mocket.channel.ChannelCommons;
 import com.network.mocket.packet.PacketManager;
 
+import java.io.IOException;
 import java.net.SocketAddress;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -20,6 +21,10 @@ public class ServerChannelManager extends ChannelManager {
   @Override
   public void reactOnAcknowledge() {
     executorService.execute(new SeqUpdateRunnable());
+  }
+
+  @Override public void registerChannel() throws InterruptedException, IOException {
+    throw new RuntimeException("Method Not implemented");
   }
 
   @Override

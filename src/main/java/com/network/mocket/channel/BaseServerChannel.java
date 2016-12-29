@@ -1,5 +1,6 @@
 package com.network.mocket.channel;
 
+import com.network.mocket.Constants;
 import com.network.mocket.MocketException;
 import com.network.mocket.allocator.buffer.ByteBufferAllocator;
 import com.network.mocket.allocator.packet.PacketAllocator;
@@ -78,7 +79,7 @@ public abstract class BaseServerChannel extends ChannelCommons implements Server
     LOGGER.log(Level.INFO, "total packets got: {0}", packets.size());
 
     for(IPacket packet: packets) {
-      MocketChannel.logPacket(sender, packet, false);
+      logPacket(sender, packet, false);
       IPacket packet1 = packetAllocator.allocate(packet.getSize(), packet.getHeader().getPacketType());
       packet1.put(packet.read());
       incomingPacket.add(packet1);

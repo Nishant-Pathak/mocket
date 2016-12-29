@@ -109,7 +109,7 @@ public abstract class Channel extends ChannelCommons implements ClientChannel {
           List<IPacket> incomingPacket = new ArrayList<>(packets.size());
 
           for(IPacket packet: packets) {
-            MocketChannel.logPacket(serverAddress, packet, false);
+            Channel.logPacket(serverAddress, packet, false);
             IPacket packet1 = packetAllocator.allocate(packet.getSize(), packet.getHeader().getPacketType());
             packet1.put(packet.read());
             incomingPacket.add(packet1);

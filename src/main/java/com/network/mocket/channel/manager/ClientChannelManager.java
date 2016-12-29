@@ -58,6 +58,10 @@ final public class ClientChannelManager extends ChannelManager {
     return false;
   }
 
+  @Override public void reactOnAcknowledge() {
+    throw new RuntimeException("Not implemented");
+  }
+
   @Override
   public void registerChannel() throws InterruptedException, IOException {
     Pair<Integer, IPacket> channelInitPacket =

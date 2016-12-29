@@ -30,7 +30,10 @@ public class NackPacket extends Packet {
   }
 
   @Override
-  public void postProcess(IChannelManager channelManager, ExecutorService executorService) {
+  public void postProcess(
+      final IChannelManager channelManager,
+      final ExecutorService executorService
+  ) {
     byte[] voidByteArray = readPayload();
     int voidCount = ((NackHeader) header).getNackCount();
     ByteBuffer byteBuffer = ByteBuffer.wrap(voidByteArray);
@@ -38,12 +41,18 @@ public class NackPacket extends Packet {
     for (int i = 0; i < voidCount; i++) {
       voids.add(byteBuffer.getInt());
     }
-    executorService.submit(() -> {
-      for(Integer v: voids) {
-        channelManager.reSendPacketWithIndex(v);
+    executorService.submit(new Runnable() {
+      @Override public void run() {
+        for (Integer v : voids) {
+          channelManager.reSendPacketWithIndex(v);
+        }
       }
     });
-    executorService.execute(channelManager::reactOnAcknowledge);
+    executorService.execute(new Runnable() {
+      @Override public void run() {
+        channelManager.reactOnAcknowledge();
+      }
+    });
   }
 
   public class NackHeader extends Header {

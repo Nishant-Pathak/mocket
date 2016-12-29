@@ -4,10 +4,8 @@ import com.network.mocket.Constants;
 import com.network.mocket.channel.manager.ChannelManager;
 import com.network.mocket.channel.manager.IChannelManager;
 import com.network.mocket.helper.Pair;
-
 import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutorService;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AckPacket extends Packet {
@@ -26,9 +24,18 @@ public class AckPacket extends Packet {
 
   @Override
   public void postProcess(final IChannelManager channelManager, ExecutorService executorService) {
-    executorService.execute(() ->
-        channelManager.reSendPacket(getHeader().getAckAsRange().getFirst(), getHeader().getAckAsRange().getSecond()));
-    executorService.execute(channelManager::reactOnAcknowledge);
+    executorService.execute(
+        new Runnable() {
+          @Override public void run() {
+            channelManager.reSendPacket(getHeader().getAckAsRange().getFirst(), getHeader()
+                .getAckAsRange().getSecond());
+          }
+        });
+    executorService.execute(new Runnable() {
+      @Override public void run() {
+        channelManager.reactOnAcknowledge();
+      }
+    });
   }
 
   public class AckHeader extends Header {

@@ -24,7 +24,5 @@ public interface IPacket extends Comparable {
    * @param channelManager
    * @param executorService
    */
-  default void postProcess(IChannelManager channelManager, ExecutorService executorService){
-    throw new RuntimeException("Packet.postProcess not implemented");
-  }
+  void postProcess(IChannelManager channelManager, ExecutorService executorService);
 }

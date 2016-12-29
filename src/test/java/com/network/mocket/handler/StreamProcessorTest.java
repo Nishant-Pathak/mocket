@@ -13,7 +13,7 @@ public class StreamProcessorTest {
 
   @Before
   public void setUp() throws Exception {
-    streamProcessor = new StreamProcessor(new LinkedList<>());
+    streamProcessor = new StreamProcessor(new LinkedList<MocketStreamHandler>());
   }
 
   @Test
