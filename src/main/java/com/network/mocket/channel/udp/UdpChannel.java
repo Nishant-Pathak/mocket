@@ -28,15 +28,18 @@ final public class UdpChannel extends Channel {
   private static final Logger LOGGER = Logger.getLogger(UdpChannel.class.getName());
   private final UUID channelId;
   private DatagramChannel datagramChannel;
+  private boolean ensureDelivery;
+
   public UdpChannel(
       UUID channelId,
       ByteBufferAllocator byteBufferAllocator,
       PacketAllocator packetAllocator,
       ExecutorService readExecutor,
-      ScheduledExecutorService executorService
-  ) {
+      ScheduledExecutorService executorService,
+      boolean ensureDelivery) {
     super(MAX_DATA_SIZE, channelId, byteBufferAllocator, packetAllocator, readExecutor, executorService);
     this.channelId = channelId;
+    this.ensureDelivery = ensureDelivery;
   }
 
   @Override
@@ -73,7 +76,7 @@ final public class UdpChannel extends Channel {
               this,
               serverAddress,
               scheduledExecutorService,
-              true
+              ensureDelivery
           );
       channelManager.setChannelId(channelId);
       channelManager.registerChannel();

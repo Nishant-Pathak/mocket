@@ -6,6 +6,7 @@ import com.network.mocket.allocator.buffer.ByteBufferPool;
 import com.network.mocket.allocator.packet.PacketAllocator;
 import com.network.mocket.allocator.packet.PacketPool;
 import com.network.mocket.builder.Builder;
+import com.network.mocket.builder.server.ServerBuilder;
 import com.network.mocket.channel.ClientChannel;
 import com.network.mocket.channel.udp.UdpChannel;
 import com.network.mocket.handler.MocketStreamHandler;
@@ -27,9 +28,14 @@ public class ClientBuilder<T> implements Builder {
   private static final Logger LOGGER = Logger.getLogger(ClientBuilder.class.getName());
 
   private ChannelType channelType = ChannelType.UDP;
+
   private String host;
+
   private int port;
+
   private List<MocketStreamHandler> handlers;
+
+  private boolean ensureDelivery = false;
 
   public ClientBuilder() {
     setLogLevel(Level.OFF);
@@ -41,7 +47,7 @@ public class ClientBuilder<T> implements Builder {
    * @return new concrete {@link Client}
    * @throws MocketException if it fails to create Client
    */
-  public Client<T> build() throws MocketException {
+  public <T> Client<T> build() throws MocketException {
     ClientChannel clientChannel;
     UUID uuid = UUID.randomUUID();
 
@@ -68,7 +74,8 @@ public class ClientBuilder<T> implements Builder {
             byteBufferAllocator,
             packetAllocator,
             executorService,
-            scheduledExecutorService
+            scheduledExecutorService,
+            ensureDelivery
         );
         break;
       default:
@@ -115,5 +122,11 @@ public class ClientBuilder<T> implements Builder {
     UDP,
     TCP,
     TWO_TCP
+  }
+
+
+  public ClientBuilder<T> ensureDelivery(boolean ensure) {
+    ensureDelivery = ensure;
+    return this;
   }
 }

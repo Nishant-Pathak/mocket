@@ -34,9 +34,8 @@ final public class UdpServerChannel extends BaseServerChannel {
       ByteBufferAllocator byteBufferAllocator,
       PacketAllocator packetAllocator,
       ExecutorService readExecutorService,
-      ScheduledExecutorService executorService
-  ) {
-    super(MAX_DATA_SIZE, byteBufferAllocator, packetAllocator, readExecutorService, executorService, true);
+      ScheduledExecutorService executorService) {
+    super(MAX_DATA_SIZE, byteBufferAllocator, packetAllocator, readExecutorService, executorService, ensureDelivery);
   }
 
   @Override
