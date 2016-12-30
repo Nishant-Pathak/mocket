@@ -155,7 +155,7 @@ public abstract class BaseServerChannel extends ChannelCommons implements Server
   @Override
   public void processWrite(byte[] data, SocketAddress address) throws IOException, InterruptedException {
     ChannelManager channelManager = socketAddressChannelManager.get(address);
-    for(int i =0; i< data.length; i+= maxDataSize) {
+    for(int i = 0; i< data.length; i += maxDataSize) {
       Pair<Integer, IPacket> dataPacket =
           ByteBufferToPackets.wrapBytesToPackets(
               channelManager, PacketType.DATA,

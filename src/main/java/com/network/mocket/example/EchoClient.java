@@ -3,7 +3,6 @@ package com.network.mocket.example;
 import com.network.mocket.MocketException;
 import com.network.mocket.builder.client.Client;
 import com.network.mocket.builder.client.ClientBuilder;
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
@@ -12,9 +11,7 @@ import java.nio.channels.ReadableByteChannel;
 public class EchoClient {
 
   public static void main(String... args) throws MocketException, IOException, InterruptedException {
-    ClientBuilder<byte []> builder = new ClientBuilder<byte []>()
-        .host("127.0.0.1", 8080);
-    Client<byte []> client = builder.build();
+    Client<byte []> client = new ClientBuilder<>().ensureDelivery(false).host("127.0.0.1", 8080).build();
 
     ReadableByteChannel readableByteChannel = Channels.newChannel(System.in);
     ByteBuffer byteBuffer = ByteBuffer.allocate(1024);

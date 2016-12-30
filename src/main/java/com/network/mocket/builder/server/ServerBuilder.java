@@ -21,7 +21,9 @@ import java.util.logging.*;
 
 public class ServerBuilder<T> implements Builder {
   private int port = 8080;
+
   private ChannelType channelType = ChannelType.UDP;
+
   private List<MocketStreamHandler> handlers;
 
   public ServerBuilder() {
