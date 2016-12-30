@@ -4,27 +4,19 @@ import com.network.mocket.MocketException;
 import com.network.mocket.allocator.buffer.ByteBufferAllocator;
 import com.network.mocket.allocator.packet.PacketAllocator;
 import com.network.mocket.channel.BaseServerChannel;
-import com.network.mocket.helper.Utils;
 import com.network.mocket.packet.DataPacket;
-import com.network.mocket.packet.IPacket;
-import com.network.mocket.parser.ByteBufferToPackets;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.net.SocketOption;
 import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 final public class UdpServerChannel extends BaseServerChannel {
   private static final int MAX_DATA_SIZE = 508 - DataPacket.DataHeader.DATA_HEADER_LENGTH;
@@ -35,7 +27,8 @@ final public class UdpServerChannel extends BaseServerChannel {
       PacketAllocator packetAllocator,
       ExecutorService readExecutorService,
       ScheduledExecutorService executorService) {
-    super(MAX_DATA_SIZE, byteBufferAllocator, packetAllocator, readExecutorService, executorService, ensureDelivery);
+    super(MAX_DATA_SIZE, byteBufferAllocator, packetAllocator, readExecutorService,
+        executorService, false);
   }
 
   @Override
