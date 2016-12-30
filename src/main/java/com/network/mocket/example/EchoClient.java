@@ -11,9 +11,7 @@ import java.nio.channels.ReadableByteChannel;
 public class EchoClient {
 
   public static void main(String... args) throws MocketException, IOException, InterruptedException {
-    ClientBuilder<byte []> builder = new ClientBuilder<byte []>()
-        .host("127.0.0.1", 8080);
-    final Client<byte []> client = builder.build();
+    Client<byte []> client = new ClientBuilder<>().ensureDelivery(false).host("127.0.0.1", 8080).build();
 
     final ReadableByteChannel readableByteChannel = Channels.newChannel(System.in);
     final ByteBuffer byteBuffer = ByteBuffer.allocate(1024);

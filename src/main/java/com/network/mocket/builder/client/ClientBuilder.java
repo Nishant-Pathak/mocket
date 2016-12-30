@@ -10,7 +10,6 @@ import com.network.mocket.channel.ClientChannel;
 import com.network.mocket.channel.udp.UdpChannel;
 import com.network.mocket.handler.MocketStreamHandler;
 import com.network.mocket.handler.StreamProcessor;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -18,7 +17,11 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.logging.*;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * builds a client object as per configure
@@ -27,9 +30,14 @@ public class ClientBuilder<T> implements Builder {
   private static final Logger LOGGER = Logger.getLogger(ClientBuilder.class.getName());
 
   private ChannelType channelType = ChannelType.UDP;
+
   private String host;
+
   private int port;
+
   private List<MocketStreamHandler> handlers;
+
+  private boolean ensureDelivery = false;
 
   public ClientBuilder() {
     setLogLevel(Level.OFF);
@@ -41,7 +49,7 @@ public class ClientBuilder<T> implements Builder {
    * @return new concrete {@link Client}
    * @throws MocketException if it fails to create Client
    */
-  public Client<T> build() throws MocketException {
+  public <T> Client<T> build() throws MocketException {
     ClientChannel clientChannel;
     UUID uuid = UUID.randomUUID();
 
@@ -68,7 +76,8 @@ public class ClientBuilder<T> implements Builder {
             byteBufferAllocator,
             packetAllocator,
             executorService,
-            scheduledExecutorService
+            scheduledExecutorService,
+            ensureDelivery
         );
         break;
       default:
@@ -129,6 +138,11 @@ public class ClientBuilder<T> implements Builder {
       h.setLevel(logLevel);
     }
     log.log(Level.ALL, "log level configured to: " + logLevel);
+    return this;
+  }
+
+  public ClientBuilder<T> ensureDelivery(boolean ensure) {
+    ensureDelivery = ensure;
     return this;
   }
 }
