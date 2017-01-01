@@ -145,10 +145,15 @@ Example
 -------
 Sample server client can be found here [example](/src/main/java/com/network/mocket/example).
 
+Android App Demo
+================
+![Mocket android app](https://github.com/Nishant-Pathak/mocket_android_demo)
+
 Use Case
 --------
 1. Service-Service communication inside data center.
-2. Push periodic data such as location from Android app* to server.
+2. Use in android app for better performance in flaky networks.
+3. Use in senser based Android things device to push* periodic data to the server.
 
 *Some gateways might block UDP traffic.
 
