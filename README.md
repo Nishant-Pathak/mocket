@@ -1,11 +1,12 @@
-[![Build Status](https://travis-ci.org/Nishant-Pathak/mocket.svg?branch=master)](https://travis-ci.org/Nishant-Pathak/mocket)
-
 Mocket
 ======
 
+[![Build Status](https://travis-ci.org/Nishant-Pathak/mocket.svg?branch=master)](https://travis-ci.org/Nishant-Pathak/mocket)
 [![Join the chat at https://gitter.im/_mocket/Lobby](https://badges.gitter.im/_mocket/Lobby.svg)](https://gitter.im/_mocket/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-Lightweight, Typesafe, Reliable, Guaranty delivery, Ordered, High performant java nio sockets build on top
-of udp.
+
+
+    Lightweight, Typesafe, Reliable, Guaranty delivery, Ordered, High performant java nio sockets build 
+    on top of udp.
 
 Download
 --------
