@@ -2,6 +2,8 @@
 
 Mocket
 ======
+
+[![Join the chat at https://gitter.im/_mocket/Lobby](https://badges.gitter.im/_mocket/Lobby.svg)](https://gitter.im/_mocket/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Lightweight, Typesafe, Reliable, Guaranty delivery, Ordered, High performant java nio sockets build on top
 of udp.
 
