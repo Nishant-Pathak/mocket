@@ -1,7 +1,7 @@
 # Compared with quic
 
 + Go through https://github.com/google/proto-quic to setup quic.
-+ GO through README.md for mocket sample client and server.
++ Go through README.md for mocket sample client and server.
 
 Comparision is made between quic http (1645 Bytes) vs mocket native(2KB) one way
 
